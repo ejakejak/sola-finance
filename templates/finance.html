@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Finance — SOLA Finance (<role-locked>){% endblock %}
+{% block body %}
+<h1>Finance Module <span style="font-weight:400;font-size:14px;color:var(--muted)">· HPP / margin / price / invoice / payment — Finance only</span></h1>
+{% if is_finance %}<div style="margin-bottom:12px"><strong style="color:var(--ok)">● Finance role</strong> — all finance-visible fields shown.</div>
+<div class="grid-4">
+  <div class="card"><h3>HPP</h3><p>Actual vs estimate · linked to Order_ID (P1 order costing)</p></div>
+  <div class="card"><h3>Margin / Price</h3><p>Price role-blocked for Non-Finance (§DESIGN_SPEC 3.3/239)</p></div>
+  <div class="card"><h3>Invoice linkage</h3><p>External-ID linkage · no duplicate</p></div>
+  <div class="card"><h3>Payment reconciliation</h3><p>Bank / cash reconciliation (P1)</p></div>
+</div>
+<div class="card" style="margin-top:16px"><h3>Formula (audit §5 corrected)</h3><p>Revenue = 89M → HPP = 104M → <strong>Gross = 134M impossible</strong> (original error). Corrected: Revenue − HPP = Gross Profit (derived from posted transactions).</p></div>
+{% else %}<div style="padding:24px;border:2px solid var(--err);border-radius:12px"><h2>Blocked</h2><p>Finance module requires <strong>Finance</strong> role (design spec §3.3 / 149 / 158-171 / 239). Current: <strong>{{ role }}</strong>.</p></div>{% endif %}
+{% endblock %}

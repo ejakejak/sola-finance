@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — SOLA Finance{% endblock %}
+{% block body %}
+<h1>Dashboard</h1>
+<p style="color:var(--muted)">Role: <strong>{{ role }}</strong> · visible modules: <span style="font-family:monospace;font-size:12px">{{ visible | join(", ") }}</span></p>
+<div class="grid-4" style="margin-top:16px">
+  <a href="/reports/" class="card" style="text-decoration:none;color:inherit"><h3>Reports</h3><p>Revenue / HPP / gross / operating · formula verified</p></a>
+  <a href="/transactions/" class="card" style="text-decoration:none;color:inherit"><h3>Transactions</h3><p>Receipt / Expense / Transfer / Adjustment · Draft/Posted</p></a>
+  <a href="/invoices/" class="card" style="text-decoration:none;color:inherit"><h3>Invoices</h3><p>Import by external ID · no duplicates</p></a>
+  <a href="/payments/" class="card" style="text-decoration:none;color:inherit"><h3>Payments</h3><p>DP / cicilan / partial / proof / verify</p></a>
+  {% if is_finance %}<a href="/finance/" class="card" style="text-decoration:none;color:inherit"><h3>Finance</h3><p>HPP / margin / price — role-locked</p></a>{% endif %}
+  <a href="/accounting/" class="card" style="text-decoration:none;color:inherit"><h3>Accounting</h3><p>Anti-double-counting · single-source lines</p></a>
+</div>
+<p style="font-size:13px;color:var(--muted);margin-top:8px">Quick role switch (design verification): <a href="/set_role/Finance">Finance</a> · <a href="/set_role/Non-Finance">Non-Finance</a> · <a href="/set_role/Customer">Customer</a></p>
+{% endblock %}

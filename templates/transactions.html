@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Transactions — SOLA Finance{% endblock %}
+{% block body %}
+<h1>Transactions <span style="font-weight:400;font-size:14px;color:var(--muted)">· Draft vs Posted visible · audit log</span></h1>
+<div class="table-card card">
+<table><thead><tr><th>Type</th><th>Amount</th><th>Status</th><th>Ext ID</th><th>Order</th><th>Audit</th></tr></thead><tbody>
+{% for t in txs %}<tr>
+  <td><strong>{{ t[1] }}</strong></td><td style="font-variant-numeric:tabular-nums">¥{{ "%.0f"|format(t[2]) }}</td>
+  <td><span class="badge badge-{% if t[4]=='Draft' %}draft{% elif t[4]=='Posted' %}posted{% elif t[4]=='Reversed' %}reversed{% else %}draft{% endif %}">{{ t[4] }}</span></td>
+  <td><code>{{ t[5] or '-' }}</code></td><td>{{ t[6] or '-' }}</td><td><a href="/transactions/">log</a></td>
+</tr>{% endfor %}</tbody></table>
+</div>
+<div class="card" style="margin-top:16px">
+<h3>Add transaction (Receipt / Expense / Transfer / Adjustment)</h3>
+<form method="post" action="/transactions/add" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+  <div><label>Type</label><select name="tx_type"><option>Receipt</option><option>Expense</option><option>Transfer</option><option>Adjustment</option></select></div>
+  <div><label>Amount (IDR)</label><input type="number" name="amount" step="0.01" required></div>
+  <div><label>Status</label><select name="status"><option>Draft</option><option>Posted</option></select></div>
+  <div><label>External ID (optional)</label><input name="external_id"></div>
+  <div><label>Order (optional)</label><select name="order_id"><option value="">— None —</option>{% for o in orders %}<option value="{{ o.id }}">{{ o.order_number }} — {{ o.customer }}</option>{% endfor %}</select></div>
+  <div style="grid-column:1/-1"><button>Add transaction</button></div>
+</form>
+</div>
+<div class="card" style="margin-top:16px">
+  <h3>Reversal (with audit log)</h3>
+  <form method="post" action="/transactions/reversal/1" style="display:inline"><button>Reversal demo (tx 1)</button></form>
+  <div style="margin-top:12px;display:flex;gap:8px"><a href="/transactions/export" class="btn">Export CSV</a></div>
+  <p style="font-size:12px;color:var(--muted)">Reversal writes to <code>transactions_audit</code> (tx_id, action, note, ts).</p>
+</div>
+{% endblock %}

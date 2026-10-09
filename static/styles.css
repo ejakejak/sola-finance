@@ -1,0 +1,36 @@
+/* SOLA Finance Design Tokens — verified (§DESIGN_SPEC / audit design_artifacts) */
+:root{--brand:#CCA300;--navy:#0F172A;--ok:#16A34A;--warn:#F59E0B;--err:#DC2626;--info:#0EA5E9;--border:#E2E8F0;--bg:#F8FAFC;--surface:#FFFFFF;--text:#0F172A;--muted:#64748B}
+*{font-family:Inter,system-ui,sans-serif;box-sizing:border-box}
+html{font-size:16px}
+body{background:var(--bg);color:var(--text);margin:0;line-height:1.35}
+.container{max-width:1440px;margin:0 auto;padding:24px 24px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;box-shadow:0 1px 2px rgba(15,23,42,0.05)}
+h1,h2,h3{font-family:Inter,sans-serif;font-weight:700;color:var(--navy);letter-spacing:-0.02em;margin-top:0}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.badge-draft{background:#F1F5F9;color:#64748B;border:1px solid #E2E8F0}
+.badge-posted{background:#DCFCE7;color:#16A34A;border:1px solid #16A34A}
+.badge-reversed{background:#FEE2E2;color:#DC2626;border:1px solid #DC2626}
+.form-row{margin-bottom:12px}
+label{display:block;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:4px}
+input,select{height:36px;padding:0 10px;border:1px solid var(--border);border-radius:6px;background:#fff;font-size:14px;color:var(--text);font-variant-numeric:tabular-nums;transition:box-shadow .15s,border-color .15s}
+input:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(204,163,0,0.20)}
+button,a.btn{height:36px;padding:0 14px;border:1px solid transparent;border-radius:6px;background:var(--brand);color:#fff;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+button.secondary{background:#fff;color:var(--navy);border-color:var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);text-align:left;padding:10px 8px;font-weight:600}
+td{padding:10px 8px;border-bottom:1px solid #F1F5F9;vertical-align:top;font-variant-numeric:tabular-nums}
+th{min-width:100px;white-space:nowrap}
+td.num{white-space:nowrap}
+.table-card{overflow-x:auto}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.status-ok{background:var(--ok)} .status-warn{background:var(--warn)} .status-err{background:var(--err)} .status-info{background:var(--info)}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.empty-state{text-align:center;padding:48px;color:var(--muted)}
+.loading-spinner{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.alert-danger{background:#FEE2E2;color:#DC2626;border:1px solid #DC2626;padding:12px 16px;border-radius:6px;font-weight:600;margin-bottom:16px}
+.tooltip{position:relative;cursor:help}
+.tooltip::after{content:attr(data-tip);position:absolute;bottom:125%;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:6px 10px;border-radius:6px;font-size:11px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10}
+.tooltip:hover::after{opacity:1}
+@media(max-width:1024px){.container{padding:16px}.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.grid-4{grid-template-columns:1fr}.container{padding:12px}}

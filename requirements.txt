@@ -1,0 +1,4 @@
+# SOLA Finance — dependencies (Flask 3.1.1 + sqlite)
+Flask==3.1.1
+openpyxl==3.1.5
+pytest>=8.0

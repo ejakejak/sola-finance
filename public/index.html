@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <meta name="description" content="Pencatatan pemasukan dan pengeluaran SOLA Konveksi." />
+    <title>SOLA Finance</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="SOLA Finance beranda">
+          <span class="brand-mark" aria-hidden="true">S</span>
+          <span class="brand-copy"><strong>SOLA</strong><small>FINANCE</small></span>
+        </a>
+        <div class="header-right">
+          <span id="connection-state" class="connection-state"><span class="connection-dot"></span>Memeriksa koneksi</span>
+          <button id="logout-button" class="text-button" type="button" hidden>Keluar</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="login-view" class="login-view" hidden>
+          <div class="login-card">
+            <span class="eyebrow">AREA FINANCE</span>
+            <h1>Masuk ke pencatatan</h1>
+            <p>Masukkan kode akses Finance SOLA untuk melanjutkan.</p>
+            <form id="login-form">
+              <label for="access-code">Kode akses</label>
+              <input id="access-code" name="code" type="password" autocomplete="current-password" required />
+              <button class="primary-button full-width" type="submit">Masuk <span aria-hidden="true">→</span></button>
+            </form>
+            <p id="login-error" class="inline-error" role="alert" hidden></p>
+          </div>
+        </section>
+
+        <section id="app-view" hidden>
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">PENCATATAN HARIAN</span>
+              <h1>Catat transaksi</h1>
+              <p>Masukkan uang masuk atau pengeluaran usaha dengan cepat.</p>
+            </div>
+            <div class="today-chip"><span class="today-icon" aria-hidden="true">◷</span><span id="today-label"></span></div>
+          </div>
+
+          <div class="content-grid">
+            <section class="panel entry-panel" aria-labelledby="entry-title">
+              <div class="panel-heading">
+                <div class="panel-icon" aria-hidden="true">＋</div>
+                <div><h2 id="entry-title">Transaksi baru</h2><p>Kolom bertanda <span class="required-star">*</span> wajib diisi.</p></div>
+              </div>
+
+              <form id="transaction-form" novalidate>
+                <fieldset class="type-fieldset">
+                  <legend>Jenis transaksi <span class="required-star">*</span></legend>
+                  <div class="type-toggle" role="group" aria-label="Jenis transaksi">
+                    <button class="type-option is-active" type="button" data-type="Pengeluaran" aria-pressed="true">
+                      <span class="type-symbol expense-symbol" aria-hidden="true">−</span>Pengeluaran
+                    </button>
+                    <button class="type-option" type="button" data-type="Pemasukan" aria-pressed="false">
+                      <span class="type-symbol income-symbol" aria-hidden="true">＋</span>Pemasukan
+                    </button>
+                  </div>
+                </fieldset>
+
+                <div class="form-row">
+                  <div class="field">
+                    <label for="date">Tanggal <span class="required-star">*</span></label>
+                    <input id="date" name="date" type="date" required />
+                  </div>
+                  <div class="field">
+                    <label for="method">Metode pembayaran <span class="required-star">*</span></label>
+                    <select id="method" name="method" required>
+                      <option value="Tunai">Tunai</option>
+                      <option value="Transfer Bank">Transfer Bank</option>
+                      <option value="QRIS">QRIS</option>
+                      <option value="Lainnya">Lainnya</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="amount">Nominal <span class="required-star">*</span></label>
+                  <div class="amount-input"><span>Rp</span><input id="amount" name="amount" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-describedby="amount-hint" required /></div>
+                  <small id="amount-hint" class="field-hint">Masukkan angka tanpa titik atau koma.</small>
+                </div>
+
+                <div class="field">
+                  <label for="category">Kategori <span class="required-star">*</span></label>
+                  <select id="category" name="category" required><option value="">Memuat kategori…</option></select>
+                </div>
+
+                <div class="field">
+                  <label for="note">Catatan <span class="optional-label">Opsional</span></label>
+                  <textarea id="note" name="note" rows="2" maxlength="300" placeholder="Contoh: pembelian kain untuk pesanan…"></textarea>
+                </div>
+
+                <div class="field receipt-field">
+                  <div class="label-line"><label for="receipt">Foto nota <span class="optional-label">Opsional</span></label><span class="field-hint">Otomatis dikompresi</span></div>
+                  <label class="upload-box" for="receipt">
+                    <span class="upload-icon" aria-hidden="true">↑</span>
+                    <span><strong>Pilih foto nota</strong><small>JPG, PNG, atau foto dari kamera</small></span>
+                    <span class="upload-action">Pilih file</span>
+                  </label>
+                  <input id="receipt" name="receipt" class="visually-hidden" type="file" accept="image/*" />
+                  <div id="receipt-preview" class="receipt-preview" hidden></div>
+                </div>
+
+                <div id="form-message" class="form-message" role="status" aria-live="polite" hidden></div>
+                <button id="submit-button" class="primary-button submit-button" type="submit">Simpan transaksi <span aria-hidden="true">→</span></button>
+              </form>
+            </section>
+
+            <aside class="panel recent-panel" aria-labelledby="recent-title">
+              <div class="recent-heading">
+                <div><span class="eyebrow">CATATAN TERBARU</span><h2 id="recent-title">Transaksi terakhir</h2></div>
+                <button id="refresh-button" class="icon-button" type="button" aria-label="Muat ulang transaksi" title="Muat ulang">↻</button>
+              </div>
+              <div id="recent-list" class="recent-list"><div class="empty-state"><span class="empty-symbol">…</span><p>Memuat catatan…</p></div></div>
+              <input id="retry-receipt" class="visually-hidden" type="file" accept="image/*" />
+              <p class="recent-footnote">Menampilkan maksimal 8 transaksi terbaru.</p>
+            </aside>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer"><span>SOLA Finance</span><span>Catatan rapi, usaha lebih terpantau.</span></footer>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+  </body>
+</html>

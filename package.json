@@ -1,0 +1,12 @@
+{
+  "name": "sola-finance",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pencatatan pemasukan dan pengeluaran SOLA Konveksi",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "googleapis": "^185.0.0"
+  }
+}
